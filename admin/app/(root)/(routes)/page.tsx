@@ -24,11 +24,7 @@ const SetupPage = () => {
 
   // This is the content we want to show on our page.
   // It's a simple box with some text saying "Root Page."
-  return (
-    <div className="p-4">
-      Root Page
-    </div>
-  );
+  return null;
 };
 
 // We're telling the computer that we want to use this SetupPage component in other parts of our program.
