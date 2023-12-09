@@ -1,4 +1,4 @@
-"USE CLIENT";
+"use client";
 
 import {
   Dialog,
@@ -24,6 +24,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
 }) => {
   const onChange = (open: boolean) => {
+    //ACCEPT AN OPEN PROMPT
     if (!open) {
       onClose();
     }
