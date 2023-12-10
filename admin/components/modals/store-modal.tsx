@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Importing the "client" module or feature for client-side functionality.
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -22,12 +22,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+// Defining a Zod schema for the form with a single field "name" as a string with a minimum length of 1.
 const formSchema = z.object({
   name: z.string().min(1),
 });
 
 export const StoreModal = () => {
-  const storeModal = useStoreModal();
+  const storeModal = useStoreModal(); // Using the custom hook to manage the store modal state.
 
   const [loading, setLoading] = useState(false);
 
@@ -42,13 +43,13 @@ export const StoreModal = () => {
     try {
       setLoading(true);
 
-      const response = await axios.post("/api/stores", values);
+      const response = await axios.post("/api/stores", values); //Making a POST request to create a new store.
 
-      toast.success("Store created successfully.");
+      window.location.assign(`/$(response.data.id)`);
     } catch (error) {
       toast.error("Something went wrong.");
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   };
 
