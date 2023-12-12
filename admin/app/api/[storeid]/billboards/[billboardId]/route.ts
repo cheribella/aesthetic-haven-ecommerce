@@ -11,8 +11,8 @@ export async function GET(
 ) {
   try {
     if (!params.billboardId) {
-        return new NextResponse("Billboard ID is required", { status: 400 });
-      }
+      return new NextResponse("Billboard ID is required", { status: 400 });
+    }
 
     const billboard = await prismadb.billboard.findUnique({
       where: {
@@ -70,8 +70,8 @@ export async function PATCH(
       },
       data: {
         label,
-        imageUrl
-      }
+        imageUrl,
+      },
     });
 
     return NextResponse.json(billboard);
