@@ -11,7 +11,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
   const store = await prismadb.store.findFirst({
     where: {
       id: params.storeId,
-    },
+    }
   });
   // Return a JSX element displaying the name of the active store (or 'undefined' if not found).
   return <div>Active store: {store?.name}</div>;

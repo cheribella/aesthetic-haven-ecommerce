@@ -1,12 +1,12 @@
 import { UserButton, auth } from "@clerk/nextjs";
 import { MainNav } from "@/components/main-nav";
 import StoreSwitcher from "@/components/store-switcher";
-import { Store } from "lucide-react";
+
 import { redirect } from "next/navigation";
 
 import prismadb from "@/lib/prismadb";
 
-const NavigationBar = async () => {
+const Navbar = async () => {
   const { userId } = auth();
 
   if(!userId){
@@ -32,4 +32,4 @@ const NavigationBar = async () => {
   );
 };
 
-export default NavigationBar;
+export default Navbar;
