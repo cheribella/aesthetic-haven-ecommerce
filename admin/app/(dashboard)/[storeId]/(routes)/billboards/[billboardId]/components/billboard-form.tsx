@@ -1,19 +1,17 @@
 "use client";
 
-import axios from "axios";
-import * as z from "zod";
-import { Billboard } from "@prisma/client";
-import { Trash } from "lucide-react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import * as z from "zod"
+import axios from "axios"
+import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "react-hot-toast"
+import { Trash } from "lucide-react"
+import { Billboard } from "@prisma/client"
+import { useParams, useRouter } from "next/navigation"
 
-import { Input } from "@/components/ui/input";
-import { Heading } from "@/components/ui/heading";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -21,9 +19,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { AlertModal } from "@/components/modals/alert-modal";
-import ImageUpload from "@/components/ui/img-upload";
+} from "@/components/ui/form"
+import { Separator } from "@/components/ui/separator"
+import { Heading } from "@/components/ui/heading"
+import { AlertModal } from "@/components/modals/alert-modal"
+import ImageUpload from "@/components/ui/img-upload"
+
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -70,7 +71,6 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
       router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error: any) {
-      console.error("Error updating store:", error);
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -132,14 +132,14 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
                     value={field.value ? [field.value] : []}
                     disabled={loading}
                     onChange={(url) => field.onChange(url)}
-                    onRemove={(url) => field.onChange("")}
+                    onRemove={() => field.onChange("")}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8 mb-4">
+          <div className="grid grid-cols-3 gap-8 mb-6">
             <FormField
               control={form.control}
               name="label"
@@ -163,7 +163,6 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };

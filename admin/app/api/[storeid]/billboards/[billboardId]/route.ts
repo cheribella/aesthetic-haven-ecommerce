@@ -1,6 +1,7 @@
 //This route is to be used to update/delete the store
 
 import prismadb from "@/lib/prismadb";
+
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
@@ -9,7 +10,9 @@ export async function GET(
   { params }: { params: { billboardId: string } }
 ) {
   try {
-    const { userId } = auth();
+    if (!params.billboardId) {
+        return new NextResponse("Billboard ID is required", { status: 400 });
+      }
 
     const billboard = await prismadb.billboard.findUnique({
       where: {
@@ -67,8 +70,8 @@ export async function PATCH(
       },
       data: {
         label,
-        imageUrl,
-      },
+        imageUrl
+      }
     });
 
     return NextResponse.json(billboard);
@@ -95,7 +98,7 @@ export async function DELETE(
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
-        id: params.billboardId,
+        id: params.storeId,
         userId,
       },
     });
@@ -112,7 +115,7 @@ export async function DELETE(
 
     return NextResponse.json(billboard);
   } catch (error) {
-    console.log("[BILLBOARD_DELETE]", error);
+    console.log("[BILLBOARDS_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
