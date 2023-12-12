@@ -23,7 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/img-upload";
 
 const formSchema = z.object({
@@ -38,11 +37,10 @@ interface BillboardsFormProps {
 }
 
 export const BillboardsForm: React.FC<BillboardsFormProps> = ({
-  initialData,
+  initialData
 }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const title = initialData ? "Edit a Billboard" : "Create New Billboard";
   const description = initialData ? "Edit a billboard" : "Add a new billboard";
@@ -55,8 +53,8 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
   const form = useForm<BillboardsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      label: "",
-      imageUrl: "",
+      label: '',
+      imageUrl: '',
     },
   });
 
@@ -69,8 +67,9 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating store:", error);
       toast.error("Something went wrong.");
     } finally {
@@ -83,7 +82,7 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboard/${params.billboardId}`);
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard successfully deleted.");
     } catch (error) {
       toast.error(
