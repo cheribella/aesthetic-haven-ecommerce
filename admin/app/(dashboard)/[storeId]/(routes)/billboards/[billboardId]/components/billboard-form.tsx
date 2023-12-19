@@ -85,9 +85,9 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
-      toast.success('Billboard deleted.');
+      toast.success('Billboard successfully deleted.');
     } catch (error: any) {
-      toast.error('Make sure you removed all categories using this billboard first.');
+      toast.error("Please make sure you've removed all categories linked to this product before making any changes.");
     } finally {
       setLoading(false);
       setOpen(false);
