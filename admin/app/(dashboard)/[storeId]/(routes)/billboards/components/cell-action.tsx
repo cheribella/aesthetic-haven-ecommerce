@@ -38,20 +38,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     toast.success("Billboard ID copied to the clipboard.");
   };
 
-  const onDelete = async () => {
+  const onConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboard/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      toast.success('Billboard deleted.');
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard successfully deleted.");
     } catch (error) {
-      toast.error(
-        "Make sure you removed all categories using this billboard first."
-      );
+      toast.error('Make sure you removed all categories using this billboard first.');
     } finally {
-      setLoading(false);
       setOpen(false);
+      setLoading(false);
     }
   };
 
@@ -60,7 +57,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onDelete}
+        onConfirm={onConfirm}
         loading={loading}
       />
       <DropdownMenu>

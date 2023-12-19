@@ -10,7 +10,7 @@ import { Trash } from "lucide-react";
 import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
-import { Input } from "@/components/ui/input";
+import { AlertModal } from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,10 +20,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Separator } from "@/components/ui/separator";
-import { Heading } from "@/components/ui/heading";
-import { AlertModal } from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/img-upload";
+import { Input } from "@/components/ui/input";
+import { Heading } from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -53,8 +53,8 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
   const form = useForm<BillboardsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      label: "",
-      imageUrl: "",
+      label: '',
+      imageUrl: '',
     },
   });
 
@@ -82,21 +82,17 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
-        `/api/${params.storeId}/billboard/${params.billboardId}`
-      );
+      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard successfully deleted.");
-    } catch (error) {
-      toast.error(
-        "Make sure you removed all categories using this billboard first."
-      );
+      toast.success('Billboard deleted.');
+    } catch (error: any) {
+      toast.error('Make sure you removed all categories using this billboard first.');
     } finally {
       setLoading(false);
       setOpen(false);
     }
-  };
+  }
 
   return (
     <>
