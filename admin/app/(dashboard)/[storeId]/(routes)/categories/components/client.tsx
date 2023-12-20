@@ -13,7 +13,7 @@ import { useParams, useRouter } from "next/navigation";
 import { CategoryColumn, columns } from "./columns";
 
 interface CategoryClientProps {
-  data: CategoryColumn[]
+  data: CategoryColumn[];
 }
 
 export const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
@@ -34,10 +34,10 @@ export const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="label" columns={columns} data={data}/>
-      <Heading title="API" description="API calls for Categorys"/>
+      <DataTable searchKey="name" columns={columns} data={data} />
+      <Heading title="API" description="API calls for Categories" />
       <Separator />
-      <APIList entityName="categories" entityIdName="categoryId"/>
+      <APIList entityName="categories" entityIdName="categoryId" />
     </>
   );
 };
