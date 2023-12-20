@@ -6,7 +6,7 @@ import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { BillboardColumn } from "./columns";
+import { CategoryColumn } from "./columns";
 
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -35,14 +35,14 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to the clipboard.");
+    toast.success("Category ID copied to the clipboard.");
   };
 
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      toast.success('Billboard successfully deleted.');
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+      toast.success('Category successfully deleted.');
       router.refresh();
     } catch (error) {
       toast.error("Please make sure you've removed all categories linked to this product before making any changes.");
@@ -79,7 +79,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuItem
             style={{ ...menuItemStyle, color: "grey" }}
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />
