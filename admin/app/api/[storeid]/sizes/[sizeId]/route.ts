@@ -42,11 +42,11 @@ export async function PATCH(
     }
 
     if (!name) {
-      return new NextResponse("Name is required", { status: 400 });
+      return new NextResponse("Size Name is required", { status: 400 });
     }
 
     if (!value) {
-      return new NextResponse("Value is required", { status: 400 });
+      return new NextResponse("Size Value is required", { status: 400 });
     }
 
     if (!params.sizeId) {

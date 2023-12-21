@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
 
-import prismadb from "@/lib/prismadb";
-
+import prismadb from '@/lib/prismadb';
+ 
 export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
@@ -18,11 +18,11 @@ export async function POST(
     }
 
     if (!name) {
-      return new NextResponse("Size Name is required", { status: 400 });
+      return new NextResponse("Color Name is required", { status: 400 });
     }
 
     if (!value) {
-      return new NextResponse("Size Value is required", { status: 400 });
+      return new NextResponse("Value for Color is required", { status: 400 });
     }
 
     if (!params.storeId) {
@@ -32,28 +32,28 @@ export async function POST(
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: params.storeId,
-        userId,
-      },
+        userId
+      }
     });
 
     if (!storeByUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const size = await prismadb.size.create({
+    const color = await prismadb.color.create({
       data: {
         name,
         value,
-        storeId: params.storeId,
-      },
+        storeId: params.storeId
+      }
     });
-
-    return NextResponse.json(size);
+  
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[SIZES_POST]", error);
+    console.log('[COLORS_POST]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
 
 export async function GET(
   req: Request,
@@ -64,15 +64,15 @@ export async function GET(
       return new NextResponse("Store ID is required", { status: 400 });
     }
 
-    const sizes = await prismadb.size.findMany({
+    const colors = await prismadb.color.findMany({
       where: {
-        storeId: params.storeId,
-      },
+        storeId: params.storeId
+      }
     });
-
-    return NextResponse.json(sizes);
+  
+    return NextResponse.json(colors);
   } catch (error) {
-    console.log("[SIZES_GET]", error);
+    console.log('[COLORS_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
