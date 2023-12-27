@@ -1,10 +1,13 @@
+// Import functions from module located at their own respectful destinations
 import getBillboard from "@/actions/get-billboard";
 import getProducts from "@/actions/get-products";
+
 import ProductList from "@/components/product-list";
 
 import Billboard from "@/components/ui/billboard";
 import Container from "@/components/ui/container";
 
+// Exported to prevent performance implications for the user
 export const revalidate = 0;
 
 const HomePage = async () => {
