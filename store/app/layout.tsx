@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 
-import { Urbanist } from 'next/font/google'
+import { Sen } from 'next/font/google'
 
 import './globals.css'
 
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import ModalProvider from '@/providers/modal-provider'
 
-const font = Urbanist({ subsets: ['latin'] })
+const font = Sen({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Aesthetic Haven',
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
+        <ModalProvider />
         <Navbar />
         {children}
         <Footer />
