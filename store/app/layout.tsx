@@ -9,6 +9,7 @@ import Footer from '@/components/footer'
 
 import ModalProvider from '@/providers/modal-provider'
 import ToastProvider from '@/providers/toast-provider'
+import { ThemeProvider } from '@/providers/theme-provider'
 
 const font = Sen({ weight: '400', subsets: ['latin'] })
 
